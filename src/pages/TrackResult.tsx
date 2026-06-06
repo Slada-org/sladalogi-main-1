@@ -8,7 +8,7 @@ import { useShipmentByTracking } from '@/hooks/useShipments';
 import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
 import { ShipmentTimeline } from '@/components/ShipmentTimeline';
-import { STATUS_CONFIG, COUNTRIES, TRANSPORT_MODES, COUNTRY_COORDS } from '@/types/shipment';
+import { STATUS_CONFIG, COUNTRIES, TRANSPORT_MODES, COUNTRY_COORDS, CURRENCIES } from '@/types/shipment';
 import type { PaymentRequest } from '@/types/shipment';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
@@ -33,13 +33,14 @@ function Countdown({ expiresAt }: { expiresAt: string }) {
   return <span className={remaining === 'Expired' ? 'text-destructive font-bold' : 'text-accent font-mono font-bold'}>{remaining}</span>;
 }
 
-function PaymentSection({ payment }: { payment: PaymentRequest }) {
+function PaymentSection({ payment, currency, }: { payment: PaymentRequest; currency: string; }) {
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
     toast.success('Copied to clipboard!');
   };
 
   const methodIcons: Record<string, any> = { crypto: CreditCard, western_union: Banknote, bank_transfer: Building };
+  const symbol = CURRENCIES[currency]?.symbol || '$';
   const methodLabels: Record<string, string> = { crypto: 'Cryptocurrency', western_union: 'Western Union', bank_transfer: 'Bank Transfer' };
   const MethodIcon = methodIcons[payment.paymentMethod] || CreditCard;
 
@@ -58,7 +59,7 @@ function PaymentSection({ payment }: { payment: PaymentRequest }) {
           <span className="text-xl font-bold text-foreground">
             {payment.paymentMethod === 'crypto'
               ? `${payment.amount} ${payment.cryptoCurrency}`
-              : `$${payment.amount}`}
+              : `${symbol}${payment.amount}`}
           </span>
         </div>
 
@@ -235,7 +236,7 @@ export default function TrackResult() {
           </Card>
 
           {pendingPayments.map(p => (
-            <PaymentSection key={p.id} payment={p} />
+            <PaymentSection key={p.id} payment={p} currency={shipment.currency}/>
           ))}
 
           <Card>
@@ -258,7 +259,10 @@ export default function TrackResult() {
               )}
               {shipment.insurance.status === 'priced' && (
                 <div>
-                  <p className="text-sm text-muted-foreground">Insurance fee: <strong>${shipment.insurance.fee}</strong></p>
+                  <p className="text-sm text-muted-foreground">Insurance fee: <strong>
+  {CURRENCIES[shipment.currency]?.symbol || '$'}
+  {shipment.insurance.fee}
+</strong></p>
                   <Badge variant="warning" className="mt-2">Awaiting Payment</Badge>
                 </div>
               )}
