@@ -63,6 +63,7 @@ export interface Shipment {
   id: string;
   trackingCode: string;
   status: ShipmentStatus;
+  currency: string;
   senderName: string;
   senderAddress: string;
   senderCountry: string;
@@ -102,6 +103,7 @@ export interface CreateShipmentData {
   transportMode: TransportMode;
   estimatedDelivery: string;
   shippingFee: number;
+  currency: string;
 }
 
 export const COUNTRIES: Record<string, string> = {
@@ -173,6 +175,40 @@ export const STATUS_CONFIG: Record<ShipmentStatus, { label: string; color: strin
   'delivered': { label: 'Delivered', color: 'success' },
   'payment-pending': { label: 'Payment Pending', color: 'warning' },
   'payment-expired': { label: 'Payment Expired', color: 'destructive' },
+};
+
+
+export const CURRENCIES: Record<string, { name: string; symbol: string }> = {
+  USD: { name: 'US Dollar', symbol: '$' },
+  EUR: { name: 'Euro', symbol: '€' },
+  GBP: { name: 'British Pound', symbol: '£' },
+  NGN: { name: 'Nigerian Naira', symbol: '₦' },
+  CAD: { name: 'Canadian Dollar', symbol: 'C$' },
+  AUD: { name: 'Australian Dollar', symbol: 'A$' },
+  NZD: { name: 'New Zealand Dollar', symbol: 'NZ$' },
+  CHF: { name: 'Swiss Franc', symbol: 'CHF' },
+  JPY: { name: 'Japanese Yen', symbol: '¥' },
+  CNY: { name: 'Chinese Yuan', symbol: '¥' },
+  HKD: { name: 'Hong Kong Dollar', symbol: 'HK$' },
+  SGD: { name: 'Singapore Dollar', symbol: 'S$' },
+  INR: { name: 'Indian Rupee', symbol: '₹' },
+  PKR: { name: 'Pakistani Rupee', symbol: '₨' },
+  AED: { name: 'UAE Dirham', symbol: 'د.إ' },
+  SAR: { name: 'Saudi Riyal', symbol: '﷼' },
+  QAR: { name: 'Qatari Riyal', symbol: '﷼' },
+  KWD: { name: 'Kuwaiti Dinar', symbol: 'د.ك' },
+  BHD: { name: 'Bahraini Dinar', symbol: '.د.ب' },
+  OMR: { name: 'Omani Rial', symbol: '﷼' },
+  ZAR: { name: 'South African Rand', symbol: 'R' },
+  GHS: { name: 'Ghanaian Cedi', symbol: '₵' },
+  KES: { name: 'Kenyan Shilling', symbol: 'KSh' },
+  UGX: { name: 'Ugandan Shilling', symbol: 'USh' },
+  TZS: { name: 'Tanzanian Shilling', symbol: 'TSh' },
+  EGP: { name: 'Egyptian Pound', symbol: 'E£' },
+  TRY: { name: 'Turkish Lira', symbol: '₺' },
+  RUB: { name: 'Russian Ruble', symbol: '₽' },
+  BRL: { name: 'Brazilian Real', symbol: 'R$' },
+  MXN: { name: 'Mexican Peso', symbol: '$' },
 };
 
 export function generateTrackingCode(origin: string, dest: string): string {
