@@ -13,7 +13,7 @@ import { useShipmentById, useUpdateShipment, useAddTimelineEvent, useAddPayment,
 import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
 import { ShipmentTimeline } from '@/components/ShipmentTimeline';
-import { STATUS_CONFIG, COUNTRIES } from '@/types/shipment';
+import { STATUS_CONFIG, COUNTRIES, CURRENCIES } from '@/types/shipment';
 import type { ShipmentStatus, PaymentType } from '@/types/shipment';
 import { toast } from 'sonner';
 
@@ -86,9 +86,9 @@ export default function AdminShipmentDetail() {
           <DatesSection shipmentId={shipment.id} estimatedDelivery={shipment.estimatedDelivery} departureDate={shipment.departureDate} />
           <LocationUpdate shipmentId={shipment.id} currentLocation={shipment.currentLocation} />
           <HoldSection shipmentId={shipment.id} currentHoldReason={shipment.holdReason} status={shipment.status} />
-          <PaymentRequestSection shipmentId={shipment.id} payments={shipment.payments} />
+          <PaymentRequestSection shipmentId={shipment.id} payments={shipment.payments} currency={shipment.currency}/>
           <PhotoUploadSection shipmentId={shipment.id} photos={shipment.photos} />
-          <InsuranceSection shipmentId={shipment.id} insurance={shipment.insurance} />
+          <InsuranceSection shipmentId={shipment.id} insurance={shipment.insurance} currency={shipment.currency}/>
           <DeliverSection shipmentId={shipment.id} status={shipment.status} />
         </div>
       </div>
@@ -208,11 +208,12 @@ function HoldSection({ shipmentId, currentHoldReason, status }: { shipmentId: st
   );
 }
 
-function PaymentRequestSection({ shipmentId, payments }: { shipmentId: string; payments: any[] }) {
+function PaymentRequestSection({ shipmentId, payments, currency, }: { shipmentId: string; payments: any[]; currency: string; }) {
   const updateShipment = useUpdateShipment();
   const addTimeline = useAddTimelineEvent();
   const addPayment = useAddPayment();
   const updatePaymentMut = useUpdatePayment();
+  const symbol = CURRENCIES[currency]?.symbol || '$';
   const [type, setType] = useState<string>('shipping');
   const [amount, setAmount] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<string>('crypto');
@@ -477,9 +478,10 @@ function PhotoUploadSection({ shipmentId, photos }: { shipmentId: string; photos
   );
 }
 
-function InsuranceSection({ shipmentId, insurance }: { shipmentId: string; insurance: any }) {
+function InsuranceSection({ shipmentId, insurance, currency, }: { shipmentId: string; insurance: any; currency: string; }) {
   const updateShipment = useUpdateShipment();
   const addTimeline = useAddTimelineEvent();
+  const symbol = CURRENCIES[currency]?.symbol || '$';
   const [fee, setFee] = useState(insurance.fee?.toString() || '');
 
   const handlePrice = async () => {
@@ -488,7 +490,7 @@ function InsuranceSection({ shipmentId, insurance }: { shipmentId: string; insur
       id: shipmentId,
       updates: { insurance_status: 'priced', insurance_fee: parseFloat(fee) },
     });
-    await addTimeline.mutateAsync({ shipment_id: shipmentId, title: 'Insurance Priced', description: `Insurance priced at $${fee}` });
+    await addTimeline.mutateAsync({ shipment_id: shipmentId, title: 'Insurance Priced', description: `Insurance priced at ${symbol}${fee}` });
     toast.success('Insurance priced');
   };
 
@@ -500,11 +502,11 @@ function InsuranceSection({ shipmentId, insurance }: { shipmentId: string; insur
         {insurance.status === 'requested' && (
           <div className="space-y-3">
             <Badge variant="info">Insurance Requested</Badge>
-            <div><Label>Set Insurance Fee ($)</Label><Input value={fee} onChange={e => setFee(e.target.value)} type="number" step="0.01" /></div>
+            <div><Label>Set Insurance Fee ({symbol})</Label><Input value={fee} onChange={e => setFee(e.target.value)} type="number" step="0.01" /></div>
             <Button variant="accent" size="sm" className="w-full" onClick={handlePrice}>Set Price & Notify</Button>
           </div>
         )}
-        {insurance.status === 'priced' && <Badge variant="warning">Priced at ${insurance.fee} — Awaiting payment</Badge>}
+        {insurance.status === 'priced' && <Badge variant="warning">Priced at {symbol}{insurance.fee} — Awaiting payment</Badge>}
         {(insurance.status === 'paid' || insurance.status === 'active') && <Badge variant="success">Insurance Active</Badge>}
       </CardContent>
     </Card>
