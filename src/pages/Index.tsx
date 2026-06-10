@@ -13,7 +13,7 @@ import containersImg from '@/assets/shipping-containers.jpg';
 import truckImg from '@/assets/delivery-truck.jpg';
 import planeImg from '@/assets/cargo-plane.jpg';
 import oceanImg from '@/assets/ocean-shipping.jpg';
-import courierImg from '@/assets/delivery-person.jpg';
+import courierImg from '@/assets/delivery-person.jpeg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
