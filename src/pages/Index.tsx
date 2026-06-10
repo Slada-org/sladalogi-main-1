@@ -11,7 +11,7 @@ import heroImage from '@/assets/hero-logistics.jpg';
 import warehouseImg from '@/assets/logistics-warehouse.jpg';
 import containersImg from '@/assets/shipping-containers.jpg';
 import truckImg from '@/assets/delivery-truck.jpg';
-import planeImg from '@/assets/cargo-plane.jpg';
+import planeImg from '@/assets/cargo-plane.jpeg';
 import oceanImg from '@/assets/ocean-shipping.jpg';
 import courierImg from '@/assets/delivery-person.jpeg';
 
