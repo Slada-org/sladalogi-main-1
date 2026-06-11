@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Search, Plane, Ship, Truck, Bike, Package, Clock, Globe, ShieldCheck,
-  MapPin, CheckCircle2, ArrowRight, Star, Phone, Mail, MessageCircle
+  MapPin, CheckCircle2, ArrowRight, Star, Phone, Mail, MessageCircle, MapPin
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -362,7 +362,7 @@ export default function Index() {
             <div className="space-y-4">
               <div className="flex items-center gap-2 font-bold text-xl text-foreground">
                 <Package className="h-6 w-6 text-accent" />
-                <span>Int<span className="text-accent">Track</span></span>
+                <span>Slad<span className="text-accent">aLogi.site</span></span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Professional international delivery & logistics services. Trusted by millions of customers worldwide since 2018.
@@ -391,9 +391,10 @@ export default function Index() {
             <div>
               <h4 className="font-semibold text-foreground mb-4">Contact</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> +1 (800) 555-TRACK</li>
+                <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> +44 790 284 9095</li>
                 <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> support@inttrack.com</li>
                 <li className="flex items-center gap-2"><MessageCircle className="h-4 w-4 text-accent" /> Live Chat 24/7</li>
+                <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-accent" />lutterworth, leicestershire, LE17 4XH</li>
               </ul>
             </div>
           </div>
