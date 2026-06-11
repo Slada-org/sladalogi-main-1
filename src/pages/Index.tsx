@@ -8,7 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import heroImage from '@/assets/hero-logistics.jpg';
-import warehouseImg from '@/assets/logistics-warehouse.jpg';
+import warehouseImg from '@/assets/logistics-warehouse.jpeg';
 import containersImg from '@/assets/shipping-containers.jpg';
 import truckImg from '@/assets/delivery-truck.jpeg';
 import planeImg from '@/assets/cargo-plane.jpeg';
