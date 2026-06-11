@@ -12,7 +12,7 @@ import warehouseImg from '@/assets/logistics-warehouse.jpg';
 import containersImg from '@/assets/shipping-containers.jpg';
 import truckImg from '@/assets/delivery-truck.jpg';
 import planeImg from '@/assets/cargo-plane.jpeg';
-import oceanImg from '@/assets/ocean-shipping.jpg';
+import oceanImg from '@/assets/ocean-shipping.jpeg';
 import courierImg from '@/assets/delivery-person.jpeg';
 
 const fadeUp = {
