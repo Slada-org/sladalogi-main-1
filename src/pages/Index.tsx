@@ -391,7 +391,7 @@ export default function Index() {
             <div>
               <h4 className="font-semibold text-foreground mb-4">Contact</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> +44 790 284 9095</li>
+                <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> +44 790 284 9095 (WhatsApp)</li>
                 <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> support@inttrack.com</li>
                 <li className="flex items-center gap-2"><MessageCircle className="h-4 w-4 text-accent" /> Live Chat 24/7</li>
                 <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-accent" />lutterworth, leicestershire, LE17 4XH</li>
